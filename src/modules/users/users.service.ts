@@ -12,10 +12,14 @@ export class UsersService {
 
   async createUser(email: string, password: string, name: string): Promise<User> {
     const hashedPassword = await bcrypt.hash(password, 10);
-    return this.userModel.create({ email, name, password: hashedPassword });
+    return this.userModel.create({ email, password: hashedPassword, name });
   }
 
   async findOneByEmail(email: string): Promise<User> {
     return this.userModel.findOne({ where: { email } });
+  }
+
+  async findOneById(id: number): Promise<User> {
+    return this.userModel.findByPk(id);
   }
 }
