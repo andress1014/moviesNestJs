@@ -1,5 +1,6 @@
-import { Controller, Post, Body, UnauthorizedException } from '@nestjs/common';
+import { Controller, Post, Body, UnauthorizedException, Query, Get, UseGuards, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -17,5 +18,16 @@ export class AuthController {
   @Post('refresh')
   async refresh(@Body() refreshDto: { refreshToken: string }) {
     return this.authService.refreshAccessToken(refreshDto.refreshToken);
+  }
+
+  @Get('sendVerifyEmail')
+  @UseGuards(JwtAuthGuard) // Aplica el guardia aquí
+  async sendVerifyEmail(@Req() req: Request) {
+    return this.authService.sendVerifyEmailService(req.body);
+  }
+
+  @Get('verifyEmail')
+  async verifyEmail(@Query('sub') sub: number) {
+    return this.authService.verifyEmailService(sub);
   }
 }

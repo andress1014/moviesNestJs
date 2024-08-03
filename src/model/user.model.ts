@@ -2,7 +2,7 @@ import { Column, Model, Table } from 'sequelize-typescript';
 
 @Table
 export class User extends Model<User> {
-  @Column({ 
+  @Column({
     allowNull: false,
     unique: true,
   })
@@ -14,7 +14,7 @@ export class User extends Model<User> {
   password: string;
 
   @Column({
-    defaultValue: true,
+    defaultValue: false,
   })
   active: boolean;
 
@@ -22,4 +22,8 @@ export class User extends Model<User> {
     allowNull: false,
   })
   name: string;
+  @Column({
+    defaultValue: null
+  })
+  emailVerifiedAt: Date;
 }

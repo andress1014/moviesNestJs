@@ -22,4 +22,9 @@ export class UsersService {
   async findOneById(id: number): Promise<User> {
     return this.userModel.findByPk(id);
   }
+
+  async updateOneById(id: number, data: Partial<User>): Promise<User> {
+    await this.userModel.update(data, { where: { id } });
+    return this.userModel.findByPk(id);
+  }
 }
