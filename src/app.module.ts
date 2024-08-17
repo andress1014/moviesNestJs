@@ -3,8 +3,10 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { User } from './model/user.model';
+import { User } from './model/User/user.model';
 import { MailModule } from './config/mail/mail.module';
+import { MoviesController } from './modules/movies/movies.controller';
+import { MoviesModule } from './modules/movies/movies.module';
 
 @Module({
   imports: [
@@ -27,7 +29,9 @@ import { MailModule } from './config/mail/mail.module';
     }),
     UsersModule,
     AuthModule,
-    MailModule
+    MailModule,
+    MoviesModule
   ],
+  controllers: [MoviesController],
 })
 export class AppModule {}

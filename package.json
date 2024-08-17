@@ -28,6 +28,7 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/sequelize": "^10.0.1",
     "@types/jsonwebtoken": "^9.0.6",
+    "axios": "^1.7.4",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "inlaze-movies": "file:",
