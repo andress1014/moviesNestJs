@@ -1,11 +1,14 @@
-// movies.module.ts
+// src/movies/movies.module.ts
 import { Module } from '@nestjs/common';
 import { MoviesController } from './movies.controller';
 import { MoviesService } from './movies.service';
-import { AuthModule } from '../auth/auth.module'; // Asegúrate de importar AuthModule
+import { Movie } from '../../model/Movies/movies.model'; // Asegúrate de importar el modelo aquí
+import { SequelizeModule } from '@nestjs/sequelize';
 
 @Module({
-  imports: [AuthModule],
+  imports: [
+    SequelizeModule.forFeature([Movie]), // Registra el modelo en Sequelize
+  ],
   controllers: [MoviesController],
   providers: [MoviesService],
   exports: [MoviesService],

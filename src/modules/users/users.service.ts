@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import * as bcrypt from 'bcrypt';
 import { User } from '../../model/User/user.model';
@@ -11,6 +11,12 @@ export class UsersService {
   ) { }
 
   async createUser(email: string, password: string, name: string): Promise<User> {
+    const existingUser = await this.findOneByEmail(email);
+    if (existingUser) {
+      throw new ConflictException('Email already in use');
+    }
+  
+    // Si no existe, continuar con la creación del usuario
     const hashedPassword = await bcrypt.hash(password, 10);
     return this.userModel.create({ email, password: hashedPassword, name });
   }
